@@ -13,6 +13,7 @@ namespace DatingApp
     public class Startup
     {
         private readonly IConfiguration _config;
+        private readonly string _customCorsPolicy="DevelopmentPolicy";
 
         public Startup(IConfiguration config)
         {
@@ -28,6 +29,12 @@ namespace DatingApp
             {
                 options.UseSqlServer(_config.GetConnectionString("HomeConnectionServer"));
             });
+            services.AddCors(options => options.AddPolicy(name: _customCorsPolicy, builder =>
+            {
+                builder.AllowAnyHeader()
+                       .AllowAnyMethod()
+                       .WithOrigins("https://localhost:3001", "http://localhost:3000", "http://localhost:4200");
+            }));
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -58,6 +65,9 @@ namespace DatingApp
             }
 
             app.UseRouting();
+
+            //UseCors mora biti izmedju UseRouting i UseEndpoints
+            app.UseCors(_customCorsPolicy);
 
             app.UseEndpoints(endpoints =>
             {
