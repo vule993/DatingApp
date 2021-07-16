@@ -1,4 +1,8 @@
 using DatingApp.Data;
+using DatingApp.Extensions;
+using DatingApp.Interfaces;
+using DatingApp.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace DatingApp
 {
@@ -25,16 +31,17 @@ namespace DatingApp
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<DataContext>(options=>
-            {
-                options.UseSqlServer(_config.GetConnectionString("HomeConnectionServer"));
-            });
+            services.AddApplicationServices(_config);
+
             services.AddCors(options => options.AddPolicy(name: _customCorsPolicy, builder =>
             {
                 builder.AllowAnyHeader()
                        .AllowAnyMethod()
                        .WithOrigins("https://localhost:3001", "http://localhost:3000", "http://localhost:4200");
             }));
+
+            services.AddIdentityServices(_config);
+            
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -68,6 +75,10 @@ namespace DatingApp
 
             //UseCors mora biti izmedju UseRouting i UseEndpoints
             app.UseCors(_customCorsPolicy);
+
+            //mora izmedju cors i endpoints, ovim redosledom: Authentication, Authorization
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
