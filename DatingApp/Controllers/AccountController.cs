@@ -51,7 +51,7 @@ namespace DatingApp.Controllers
         
 
         [HttpPost("login")]
-        public async Task<ActionResult<AppUser>> Login(LoginDTO loginDTO)
+        public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
             var user = await _dataContext.Users.SingleOrDefaultAsync(user => user.UserName == loginDTO.UserName);
 
@@ -59,9 +59,13 @@ namespace DatingApp.Controllers
 
             var hmac = new HMACSHA512(user.PasswordSalt);
 
-            if (!hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDTO.Password)).SequenceEqual(user.PasswordHash)) return BadRequest("Invalid password.");
+            if (!hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDTO.Password)).SequenceEqual(user.PasswordHash)) return Unauthorized("Invalid password.");
 
-            return user;
+            return new UserDTO
+            {
+                UserName = user.UserName,
+                Token = _tokenService.CreateToken(user)
+            };
         }
     }
 }
