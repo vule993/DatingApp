@@ -1,0 +1,5 @@
+.dropdown-toggle,
+.dropdown-item,
+.container li {
+  cursor: pointer;
+}

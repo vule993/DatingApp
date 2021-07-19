@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
+import { User } from "../models/user";
 import { AccountService } from "../_services/account.service";
 
 @Component({
@@ -8,8 +10,7 @@ import { AccountService } from "../_services/account.service";
 })
 export class NavComponent implements OnInit {
   model: any = {};
-  loggedIn: boolean;
-  constructor(private accountService: AccountService) {}
+  constructor(public accountService: AccountService) {}
 
   ngOnInit() {}
 
@@ -17,13 +18,16 @@ export class NavComponent implements OnInit {
     this.accountService.login(this.model).subscribe(
       (data) => {
         console.log(data);
-        this.loggedIn = true;
       },
       (err) => console.log(err)
     );
   }
 
   logout() {
-    this.loggedIn = false;
+    this.accountService.logout();
+  }
+
+  capitalizeFirst(str: string) {
+    return str[0].toUpperCase() + str.slice(1);
   }
 }

@@ -12,6 +12,7 @@ import { FetchDataComponent } from "./fetch-data/fetch-data.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NavComponent } from "./nav/nav.component";
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
+import { RegisterComponent } from "./register/register.component";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { BsDropdownModule } from "ngx-bootstrap/dropdown";
     CounterComponent,
     FetchDataComponent,
     NavComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
