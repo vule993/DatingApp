@@ -1,27 +1,51 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<!-- sa bg-dark promenili na bg-primary -->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
   <div class="container">
-    <a class="navbar-brand">Dating app</a>
+    <a routerLink="/" class="navbar-brand">Dating app</a>
 
-    <ul class="navbar-nav mr-auto" *ngIf="accountService.currentUser$ | async">
-      <li class="nav-item">
-        <a class="nav-link" aria-current="page">Matches</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link">Lists</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" tabindex="-1" aria-disabled="true">Messages</a>
-      </li>
-      <!-- <li class="nav-item" (click)="logout()">
+    <ul class="navbar-nav mr-auto">
+      <!-- ng-container je element koji se ne iscrtava na strani, mozemo ga koristiti da prikazemo ili sakrijemo nesto, a spolja mozemo ostaviti neke li elemente da se vide(recimo) -->
+      <ng-container *ngIf="accountService.currentUser$ | async">
+        <li class="nav-item">
+          <a
+            routerLink="/members"
+            class="nav-link"
+            aria-current="page"
+            routerLinkActive="active"
+            >Matches</a
+          >
+        </li>
+        <li class="nav-item">
+          <a routerLink="/lists" class="nav-link" routerLinkActive="active"
+            >Lists</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            routerLink="/messages"
+            class="nav-link"
+            tabindex="-1"
+            routerLinkActive="active"
+            aria-disabled="true"
+            >Messages</a
+          >
+        </li>
+        <!-- <li class="nav-item" (click)="logout()">
         <a class="nav-link" tabindex="-1" aria-disabled="true">Logout</a>
       </li> -->
+      </ng-container>
     </ul>
 
-    <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
-      <a class="dropdown-toggle text-light" dropdownToggle
-        >Welcome
-        {{ capitalizeFirst((accountService.currentUser$ | async).userName) }}</a
-      >
+    <!-- as user nam omogucava bukvalno definisanje promenljive u html, kasnije mozemo koristiti user dot atribut notaciju -->
+    <div
+      class="dropdown"
+      *ngIf="accountService.currentUser$ | async as user"
+      dropdown
+    >
+      <a class="dropdown-toggle text-light" dropdownToggle>
+        <!-- titlecase je mogucnost async pipe-a i povecava prvo slovo automatski -->
+        Welcome {{ user.userName | titlecase }}
+      </a>
       <div class="dropdown-menu" *dropdownMenu>
         <a class="dropdown-item">Edit profile</a>
         <div class="dropdown-divider"></div>
@@ -50,7 +74,7 @@
         type="password"
         placeholder="Password"
       />
-      <button class="btn btn-outline-success" type="submit">Login</button>
+      <button class="btn btn-success" type="submit">Login</button>
     </form>
   </div>
 </nav>
