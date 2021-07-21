@@ -1,7 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 
 import { AppComponent } from "./app.component";
@@ -18,6 +18,10 @@ import { ListsComponent } from "./lists/lists.component";
 import { MessagesComponent } from "./messages/messages.component";
 import { AuthGuard } from "./_guards/auth.guard";
 import { SharedModule } from "./_modules/shared.module";
+import { TestErrorComponent } from "./errors/test-error/test-error.component";
+import { ErrorInterceptor } from "./_interceptors/error.interceptor";
+import { NotFoundComponent } from "./errors/not-found/not-found.component";
+import { ServerErrorComponent } from "./errors/server-error/server-error.component";
 
 @NgModule({
   declarations: [
@@ -32,6 +36,9 @@ import { SharedModule } from "./_modules/shared.module";
     MemberDetailComponent,
     ListsComponent,
     MessagesComponent,
+    TestErrorComponent,
+    NotFoundComponent,
+    ServerErrorComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -54,14 +61,22 @@ import { SharedModule } from "./_modules/shared.module";
           { path: "messages", component: MessagesComponent },
         ],
       },
-
-      { path: "**", component: HomeComponent, pathMatch: "full" }, //da match-uje sve ostale putanje, tipa ako neko unese nesto nasumicno ide na home (pathmatch mora jer ako se prepozna podstring
+      { path: "error-tests", component: TestErrorComponent },
+      { path: "not-found", component: NotFoundComponent },
+      { path: "server-error", component: ServerErrorComponent },
+      { path: "**", component: NotFoundComponent, pathMatch: "full" }, //da match-uje sve ostale putanje, tipa ako neko unese nesto nasumicno ide na home (pathmatch mora jer ako se prepozna podstring
       //baca na tu stranu, pa ako se unese recimo https://localhost:5001/members/pera, vodice na members stranu jer je to najduze poklapanje sa ispravnom putanjom)
     ]),
     BrowserAnimationsModule,
     SharedModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true, //da zadrzimo i predefinisane, da ne koristimo samo nas
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
