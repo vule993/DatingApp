@@ -22,12 +22,17 @@ namespace DatingApp.Services
         }
         public string CreateToken(AppUser user)
         {
+            //tvrdnje (identitet korisnika)
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.NameId, user.UserName) 
             };
 
+            //kljuc(appsettings.json file, tajni nasumicno generisani kljuc za koji zna samo server) i kriptografski algoritam koji sluzi za
+            //generisanje digitalnog potpisa
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+
+            //svi atributi tokena
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
@@ -35,6 +40,7 @@ namespace DatingApp.Services
                 SigningCredentials = creds
             };
 
+            //handler koji se koristi za kreiranje jwt tokena
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var token = tokenHandler.CreateToken(tokenDescriptor);

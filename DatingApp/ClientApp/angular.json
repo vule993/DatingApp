@@ -156,5 +156,8 @@
       }
     }
   },
-  "defaultProject": "DatingApp"
+  "defaultProject": "DatingApp",
+  "cli": {
+    "analytics": false
+  }
 }
