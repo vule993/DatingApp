@@ -12,9 +12,12 @@
 }
 .card-img-wrapper {
   overflow: hidden;
-  height: 194px;
-  width: 194px;
+  width: 100%;
   position: relative;
+}
+.card-img-wrapper > div {
+  height: 0;
+  padding-bottom: 100%;
 }
 .member-icons {
   position: absolute;

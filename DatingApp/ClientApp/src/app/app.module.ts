@@ -59,6 +59,10 @@ import { JwtInterceptor } from "./_interceptors/jwt.interceptor";
             path: "members",
             component: MemberListComponent,
           },
+          {
+            path: "members",
+            component: MemberCardComponent,
+          },
           { path: "members/:username", component: MemberDetailComponent },
           { path: "lists", component: ListsComponent },
           { path: "messages", component: MessagesComponent },
