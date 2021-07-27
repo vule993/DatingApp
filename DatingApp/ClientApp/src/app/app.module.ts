@@ -24,7 +24,12 @@ import { NotFoundComponent } from "./errors/not-found/not-found.component";
 import { ServerErrorComponent } from "./errors/server-error/server-error.component";
 import { MemberCardComponent } from "./members/member-card/member-card.component";
 import { JwtInterceptor } from "./_interceptors/jwt.interceptor";
-
+import { MemberEditComponent } from "./members/member-edit/member-edit.component";
+import { CommonModule } from "@angular/common";
+import { PreventUnsavedChangesGuard } from "./_guards/prevent-unsaved-changes.guard";
+import { NgxSpinner } from "ngx-spinner/lib/ngx-spinner.enum";
+import { NgxSpinnerModule } from "ngx-spinner";
+import { LoadingInterceptor } from "./_interceptors/loading.interceptor";
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +47,7 @@ import { JwtInterceptor } from "./_interceptors/jwt.interceptor";
     NotFoundComponent,
     ServerErrorComponent,
     MemberCardComponent,
+    MemberEditComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -64,6 +70,11 @@ import { JwtInterceptor } from "./_interceptors/jwt.interceptor";
             component: MemberCardComponent,
           },
           { path: "members/:username", component: MemberDetailComponent },
+          {
+            path: "member/edit",
+            component: MemberEditComponent,
+            canDeactivate: [PreventUnsavedChangesGuard],
+          },
           { path: "lists", component: ListsComponent },
           { path: "messages", component: MessagesComponent },
         ],
@@ -76,6 +87,7 @@ import { JwtInterceptor } from "./_interceptors/jwt.interceptor";
     ]),
     BrowserAnimationsModule,
     SharedModule,
+    NgxSpinnerModule,
   ],
   providers: [
     {
@@ -86,6 +98,11 @@ import { JwtInterceptor } from "./_interceptors/jwt.interceptor";
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
+      multi: true, //da zadrzimo i predefinisane, da ne koristimo samo nas
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
       multi: true, //da zadrzimo i predefinisane, da ne koristimo samo nas
     },
   ],

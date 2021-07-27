@@ -42,7 +42,7 @@ namespace DatingApp.Controllers
 
             return new UserDTO 
             { 
-                UserName = user.UserName,
+                Username = user.UserName,
                 Token = _tokenService.CreateToken(user)
             };
         }
@@ -53,7 +53,7 @@ namespace DatingApp.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
-            var user = await _dataContext.Users.SingleOrDefaultAsync(user => user.UserName == loginDTO.UserName);
+            var user = await _dataContext.Users.SingleOrDefaultAsync(user => user.UserName == loginDTO.Username);
 
             if (user == null) return Unauthorized("Invalid username.");
 
@@ -63,7 +63,7 @@ namespace DatingApp.Controllers
 
             return new UserDTO
             {
-                UserName = user.UserName,
+                Username = user.UserName,
                 Token = _tokenService.CreateToken(user)
             };
         }

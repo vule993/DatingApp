@@ -56,10 +56,10 @@
     >
       <a class="dropdown-toggle text-light" dropdownToggle>
         <!-- titlecase je mogucnost async pipe-a i povecava prvo slovo automatski -->
-        Welcome {{ user.userName | titlecase }}
+        Welcome {{ user.username | titlecase }}
       </a>
       <div class="dropdown-menu" *dropdownMenu>
-        <a class="dropdown-item">Edit profile</a>
+        <a routerLink="/member/edit" class="dropdown-item">Edit profile</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" (click)="logout()">Logout</a>
       </div>
