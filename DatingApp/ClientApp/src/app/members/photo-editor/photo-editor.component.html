@@ -40,11 +40,22 @@
       Drop photos here
     </div>
 
-    Multiple
-    <input type="file" ng2FileSelect [uploader]="uploader" multiple /><br />
+    <!-- Multiple -->
+    <input
+      style="display: none"
+      type="file"
+      ng2FileSelect
+      [uploader]="uploader"
+      multiple
+    /><br />
 
-    Single
-    <input type="file" ng2FileSelect [uploader]="uploader" />
+    <!-- Single -->
+    <input
+      style="display: none"
+      type="file"
+      ng2FileSelect
+      [uploader]="uploader"
+    />
   </div>
 
   <div

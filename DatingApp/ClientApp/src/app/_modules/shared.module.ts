@@ -5,6 +5,7 @@ import { ToastrModule, ToastrService } from "ngx-toastr";
 import { TabsModule } from "ngx-bootstrap/tabs";
 import { NgxGalleryModule } from "@kolkov/ngx-gallery";
 import { FileUploadModule } from "ng2-file-upload";
+import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 
 @NgModule({
   declarations: [],
@@ -15,6 +16,7 @@ import { FileUploadModule } from "ng2-file-upload";
     TabsModule.forRoot(),
     NgxGalleryModule,
     FileUploadModule,
+    BsDatepickerModule.forRoot(),
   ],
   //da bi sve bilo vidljivo u aplikaciji moramo i exportovati module koje smo ovde prebacili
   exports: [
@@ -23,6 +25,7 @@ import { FileUploadModule } from "ng2-file-upload";
     TabsModule,
     NgxGalleryModule,
     FileUploadModule,
+    BsDatepickerModule,
   ],
 })
 export class SharedModule {}
