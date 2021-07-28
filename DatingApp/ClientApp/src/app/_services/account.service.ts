@@ -21,14 +21,14 @@ export class AccountService {
       map((response: User) => {
         const user = response as User;
         if (user) {
-          localStorage.setItem("user", JSON.stringify(user));
-          this._currentUserSource.next(user);
+          this.setCurrentUser(user);
         }
       })
     );
   }
 
   setCurrentUser(user: User) {
+    localStorage.setItem("user", JSON.stringify(user));
     this._currentUserSource.next(user);
   }
 
@@ -41,8 +41,7 @@ export class AccountService {
     return this._http.post(this.baseUrl + "register", model).pipe(
       map((user: User) => {
         if (user) {
-          localStorage.setItem("user", JSON.stringify(user));
-          this._currentUserSource.next(user);
+          this.setCurrentUser(user);
           return user;
         }
       })

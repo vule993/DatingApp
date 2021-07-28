@@ -16,9 +16,16 @@ namespace DatingApp.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
+            //za rad sa cloudinary fotografijama
+            services.Configure<CloundinarySettings>(config.GetSection("CloudinarySettings"));
+            services.AddScoped<IPhotoService, PhotoService>();
+            //za rad sa tokenima
             services.AddScoped<ITokenService, TokenService>();
+            //za rad sa user repoom
             services.AddScoped<IUserRepository, UserRepository>();
+            //za automatsko mapiranje klasa
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);    //da mozemo da injektujemo ovo moramo dodati u servise
+            //koji konekcioni string koristimo za kontekst nase aplikacije
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(config.GetConnectionString("OfficeConnectionServer"));

@@ -30,6 +30,7 @@ import { PreventUnsavedChangesGuard } from "./_guards/prevent-unsaved-changes.gu
 import { NgxSpinner } from "ngx-spinner/lib/ngx-spinner.enum";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { LoadingInterceptor } from "./_interceptors/loading.interceptor";
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +49,7 @@ import { LoadingInterceptor } from "./_interceptors/loading.interceptor";
     ServerErrorComponent,
     MemberCardComponent,
     MemberEditComponent,
+    PhotoEditorComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),

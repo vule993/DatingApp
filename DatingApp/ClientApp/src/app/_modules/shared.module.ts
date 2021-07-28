@@ -4,6 +4,7 @@ import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { ToastrModule, ToastrService } from "ngx-toastr";
 import { TabsModule } from "ngx-bootstrap/tabs";
 import { NgxGalleryModule } from "@kolkov/ngx-gallery";
+import { FileUploadModule } from "ng2-file-upload";
 
 @NgModule({
   declarations: [],
@@ -13,8 +14,15 @@ import { NgxGalleryModule } from "@kolkov/ngx-gallery";
     ToastrModule.forRoot({ positionClass: "toast-bottom-right" }),
     TabsModule.forRoot(),
     NgxGalleryModule,
+    FileUploadModule,
   ],
   //da bi sve bilo vidljivo u aplikaciji moramo i exportovati module koje smo ovde prebacili
-  exports: [BsDropdownModule, ToastrModule, TabsModule, NgxGalleryModule],
+  exports: [
+    BsDropdownModule,
+    ToastrModule,
+    TabsModule,
+    NgxGalleryModule,
+    FileUploadModule,
+  ],
 })
 export class SharedModule {}

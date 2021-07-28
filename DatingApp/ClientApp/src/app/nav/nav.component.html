@@ -54,7 +54,8 @@
       *ngIf="accountService.currentUser$ | async as user"
       dropdown
     >
-      <a class="dropdown-toggle text-light" dropdownToggle>
+      <img src="{{ user.photoUrl }}" alt="{{ user.username }}" />
+      <a class="dropdown-toggle text-light ml-2" dropdownToggle>
         <!-- titlecase je mogucnost async pipe-a i povecava prvo slovo automatski -->
         Welcome {{ user.username | titlecase }}
       </a>
