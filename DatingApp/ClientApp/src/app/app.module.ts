@@ -29,8 +29,9 @@ import { PreventUnsavedChangesGuard } from "./_guards/prevent-unsaved-changes.gu
 import { NgxSpinnerModule } from "ngx-spinner";
 import { LoadingInterceptor } from "./_interceptors/loading.interceptor";
 import { PhotoEditorComponent } from "./members/photo-editor/photo-editor.component";
-import { TextInputComponent } from './_forms/text-input/text-input.component';
-import { DateInputComponent } from './_forms/date-input/date-input.component';
+import { TextInputComponent } from "./_forms/text-input/text-input.component";
+import { DateInputComponent } from "./_forms/date-input/date-input.component";
+
 @NgModule({
   declarations: [
     AppComponent,
