@@ -43,6 +43,7 @@ export class MemberDetailComponent implements OnInit {
       .subscribe((member) => {
         this.member = member as Member;
         this.galleryImages = this.getImages();
+        debugger;
       });
   }
 

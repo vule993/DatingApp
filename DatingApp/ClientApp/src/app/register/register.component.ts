@@ -22,6 +22,7 @@ export class RegisterComponent implements OnInit {
   model: any = {};
   registerForm: FormGroup;
   maxDate: Date;
+  validationErrors: string[] = [];
 
   constructor(
     private accountService: AccountService,
@@ -42,7 +43,7 @@ export class RegisterComponent implements OnInit {
       gender: ["male"],
       username: ["", Validators.required],
       knownAs: ["", Validators.required],
-      dateOfBirdth: ["", Validators.required], //
+      dateOfBirth: ["", Validators.required],
       city: ["", Validators.required],
       country: ["", Validators.required],
 
@@ -70,12 +71,15 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.accountService.register(this.model).subscribe(
+    let a = this.registerForm.value;
+    debugger;
+    debugger;
+    this.accountService.register(this.registerForm.value).subscribe(
       (user) => {
         this._router.navigateByUrl("/members");
       },
       (err) => {
-        console.log(err);
+        this.validationErrors = err;
       }
     );
   }
