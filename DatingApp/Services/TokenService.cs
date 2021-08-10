@@ -25,7 +25,8 @@ namespace DatingApp.Services
             //tvrdnje (identitet korisnika)
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, user.UserName) 
+                new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()), 
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName) 
             };
 
             //kljuc(appsettings.json file, tajni nasumicno generisani kljuc za koji zna samo server) i kriptografski algoritam koji sluzi za
