@@ -25,6 +25,9 @@ namespace DatingApp.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
             //da vodi racuna o last active polju korisnika
             services.AddScoped<LogUserActivity>();
+            //likes repo
+            services.AddScoped<ILikesRepository, LikesRepository>();
+
 
             //za automatsko mapiranje klasa
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);    //da mozemo da injektujemo ovo moramo dodati u servise
