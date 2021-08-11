@@ -24,6 +24,10 @@ export class MembersService {
     private _http: HttpClient,
     private accountService: AccountService
   ) {
+    this.setCurrentUser();
+  }
+
+  setCurrentUser() {
     this.accountService.currentUser$.pipe(take(1)).subscribe((user) => {
       this.user = user;
       this.userParams = new UserParams(user);
@@ -35,6 +39,7 @@ export class MembersService {
   }
 
   setUserParams(params: UserParams) {
+    debugger;
     this.userParams = params;
   }
 
@@ -67,11 +72,6 @@ export class MembersService {
   }
 
   getMember(username: string) {
-    // const member = this.members.find((x) => x.username === username);
-    // if (member !== undefined) {
-    //   return of(member);
-    // }
-
     const member = [...this.memberCache.values()]
       .reduce((arr, element) => arr.concat(element.result), [])
       .find((member: Member) => member.username === username);

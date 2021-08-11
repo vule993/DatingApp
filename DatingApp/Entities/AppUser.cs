@@ -26,6 +26,8 @@ namespace DatingApp.Entities
 
         public ICollection<UserLike> LikedByUsers { get; set; }
         public ICollection<UserLike> LikedUsers { get; set; }
+        public ICollection<Message> MessagesSent { get; set; }
+        public ICollection<Message> MessagesReceived { get; set; }
 
         //ako bismo ostavili ovu metodu imacemo problem oko optimizacije upita ka bazi, bez obzira sto smo pravili automapper i projektovali u userRpository klasi
         //povlacice se kompletan AppUser iz baze a to nam nije memorijski efikasno. Uklonicemo ovu metodu(zakomentarisati) ali cemo rucno dodati novi ForMember unutar

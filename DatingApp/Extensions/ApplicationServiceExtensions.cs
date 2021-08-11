@@ -27,6 +27,8 @@ namespace DatingApp.Extensions
             services.AddScoped<LogUserActivity>();
             //likes repo
             services.AddScoped<ILikesRepository, LikesRepository>();
+            //messages repo
+            services.AddScoped<IMessageRepository, MessageRepository>();
 
 
             //za automatsko mapiranje klasa
