@@ -31,6 +31,8 @@ import { LoadingInterceptor } from "./_interceptors/loading.interceptor";
 import { PhotoEditorComponent } from "./members/photo-editor/photo-editor.component";
 import { TextInputComponent } from "./_forms/text-input/text-input.component";
 import { DateInputComponent } from "./_forms/date-input/date-input.component";
+import { MemberMessagesComponent } from "./member-messages/member-messages.component";
+import { MemberDetailedResolver } from "./_resolvers/member-detailed.resolver";
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { DateInputComponent } from "./_forms/date-input/date-input.component";
     PhotoEditorComponent,
     TextInputComponent,
     DateInputComponent,
+    MemberMessagesComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -74,7 +77,11 @@ import { DateInputComponent } from "./_forms/date-input/date-input.component";
             path: "members",
             component: MemberCardComponent,
           },
-          { path: "members/:username", component: MemberDetailComponent },
+          {
+            path: "members/:username",
+            component: MemberDetailComponent,
+            resolve: { member: MemberDetailedResolver },
+          },
           {
             path: "member/edit",
             component: MemberEditComponent,

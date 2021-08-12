@@ -9,12 +9,17 @@ code {
   color: #e01a76;
 }
 
-.btn-primary {
+/* .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+} */
+.btn-danger {
+  background-color: #df382c !important;
 }
-
+.btn-danger:hover {
+  background-color: #bd2130 !important;
+}
 .tab-panel {
   border: 1px solid #ddd;
   padding: 10px;
