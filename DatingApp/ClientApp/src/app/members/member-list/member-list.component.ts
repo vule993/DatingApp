@@ -32,7 +32,6 @@ export class MemberListComponent implements OnInit {
 
   //na osnovu rednog broja strane i koliko rekorda se vraca ucitavam korisnike
   loadMembers() {
-    debugger;
     this.memberService.setUserParams(this.userParams);
 
     this.memberService.getMembers(this.userParams).subscribe((response) => {

@@ -31,6 +31,16 @@
           >
         </li>
 
+        <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
+          <a
+            routerLink="/admin"
+            class="nav-link"
+            tabindex="-1"
+            routerLinkActive="active"
+            aria-disabled="true"
+            >Admin</a
+          >
+        </li>
         <!-- <li class="nav-item" (click)="logout()">
         <a class="nav-link" tabindex="-1" aria-disabled="true">Logout</a>
       </li> -->
@@ -60,7 +70,7 @@
       />
       <a class="dropdown-toggle text-light ml-2" dropdownToggle>
         <!-- titlecase je mogucnost async pipe-a i povecava prvo slovo automatski -->
-        Welcome {{ user.knownAs | titlecase }}
+        Welcome {{ user.knownAs || user.username | titlecase }}
       </a>
       <div class="dropdown-menu" *dropdownMenu>
         <a routerLink="/member/edit" class="dropdown-item">Edit profile</a>

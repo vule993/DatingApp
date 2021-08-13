@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace DatingApp.Controllers
@@ -17,7 +18,8 @@ namespace DatingApp.Controllers
         {
             _context = context;
         }
-
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         [Authorize]
         [HttpGet("auth")]
         public ActionResult<string> GetSecret()

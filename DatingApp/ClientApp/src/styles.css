@@ -20,6 +20,12 @@ code {
 .btn-danger:hover {
   background-color: #bd2130 !important;
 }
+.btn-info {
+  background-color: #17a2b8 !important;
+}
+.btn-info:hover {
+  background-color: #179fb5 !important;
+}
 .tab-panel {
   border: 1px solid #ddd;
   padding: 10px;

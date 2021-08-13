@@ -1,5 +1,7 @@
 using DatingApp.Data;
+using DatingApp.Entities;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,8 +28,11 @@ namespace DatingApp
             try
             {
                 var context = services.GetRequiredService<DataContext>();
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
+
+                var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
                 await context.Database.MigrateAsync();  //kreira bazu ako ne postoji
-                await Seed.SeedUsers(context);  //staticka metoda Seed klase koja popunjava bazu user-ima iz UserSeedData.json
+                await Seed.SeedUsers(userManager, roleManager);  //staticka metoda Seed klase koja popunjava bazu user-ima iz UserSeedData.json
             }
             catch (Exception ex)
             {

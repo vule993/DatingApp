@@ -40,7 +40,6 @@ export class MembersService {
   }
 
   setUserParams(params: UserParams) {
-    debugger;
     this.userParams = params;
   }
 

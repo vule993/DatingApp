@@ -33,6 +33,12 @@ import { TextInputComponent } from "./_forms/text-input/text-input.component";
 import { DateInputComponent } from "./_forms/date-input/date-input.component";
 import { MemberMessagesComponent } from "./member-messages/member-messages.component";
 import { MemberDetailedResolver } from "./_resolvers/member-detailed.resolver";
+import { AdminPanelComponent } from "./admin/admin-panel/admin-panel.component";
+import { AdminGuard } from "./_guards/admin.guard";
+import { HasRoleDirective } from "./_directives/has-role.directive";
+import { UserManagmentComponent } from "./admin/user-managment/user-managment.component";
+import { PhotoManagmentComponent } from "./admin/photo-managment/photo-managment.component";
+import { RolesModalComponent } from "./modals/roles-modal/roles-modal.component";
 
 @NgModule({
   declarations: [
@@ -56,6 +62,11 @@ import { MemberDetailedResolver } from "./_resolvers/member-detailed.resolver";
     TextInputComponent,
     DateInputComponent,
     MemberMessagesComponent,
+    AdminPanelComponent,
+    HasRoleDirective,
+    UserManagmentComponent,
+    PhotoManagmentComponent,
+    RolesModalComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -89,6 +100,11 @@ import { MemberDetailedResolver } from "./_resolvers/member-detailed.resolver";
           },
           { path: "lists", component: ListsComponent },
           { path: "messages", component: MessagesComponent },
+          {
+            path: "admin",
+            component: AdminPanelComponent,
+            canActivate: [AdminGuard],
+          },
         ],
       },
       { path: "error-tests", component: TestErrorComponent },
