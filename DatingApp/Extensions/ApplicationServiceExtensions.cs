@@ -2,6 +2,7 @@
 using DatingApp.Helpers;
 using DatingApp.Interfaces;
 using DatingApp.Services;
+using DatingApp.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ namespace DatingApp.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
+            services.AddSingleton<PresenceTracker>();
             //za rad sa cloudinary fotografijama
             services.Configure<CloundinarySettings>(config.GetSection("CloudinarySettings"));
             services.AddScoped<IPhotoService, PhotoService>();

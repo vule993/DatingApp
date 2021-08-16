@@ -60,7 +60,9 @@ namespace DatingApp.Controllers
 
         [Authorize(Policy = "ModeratePhotoRole")]
         [HttpGet("photos-to-moderate")]
-        public async Task<ActionResult> PhotosForModeration()
+        //public async Task<ActionResult> PhotosForModeration()
+        public ActionResult PhotosForModeration()
+
         {
             return Ok("Admins or moderators can see this");
         }

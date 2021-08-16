@@ -3,6 +3,7 @@ using DatingApp.Extensions;
 using DatingApp.Interfaces;
 using DatingApp.Middleware;
 using DatingApp.Services;
+using DatingApp.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,6 +39,7 @@ namespace DatingApp
             {
                 builder.AllowAnyHeader()
                        .AllowAnyMethod()
+                       .AllowCredentials()
                        .WithOrigins("https://localhost:3001", "http://localhost:3000", "http://localhost:4200");
             }));
 
@@ -49,6 +51,8 @@ namespace DatingApp
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,6 +91,7 @@ namespace DatingApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapHub<PresenceHub>("hubs/presence");
             });
 
             //app.UseSpa(spa =>

@@ -12,6 +12,7 @@ import {
 import { TabDirective, TabsetComponent } from "ngx-bootstrap/tabs";
 import { Message } from "src/app/models/message";
 import { MessageService } from "src/app/_services/message.service";
+import { PresenceService } from "src/app/_services/presence.service";
 @Component({
   selector: "app-member-detail",
   templateUrl: "./member-detail.component.html",
@@ -26,7 +27,7 @@ export class MemberDetailComponent implements OnInit {
   messages: Message[] = [];
 
   constructor(
-    private memberService: MembersService,
+    public presenceServie: PresenceService,
     private _route: ActivatedRoute,
     private messageService: MessageService
   ) {}
