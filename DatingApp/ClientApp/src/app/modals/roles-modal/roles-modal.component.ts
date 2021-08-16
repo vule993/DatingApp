@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { EventEmitter } from "events";
+import { Component, EventEmitter, Input, OnInit } from "@angular/core";
 import { BsModalRef } from "ngx-bootstrap/modal";
 import { User } from "src/app/models/user";
 
@@ -11,13 +10,13 @@ import { User } from "src/app/models/user";
 export class RolesModalComponent implements OnInit {
   @Input() updateSelectedRoles = new EventEmitter();
   user: User;
-  roles: any[];
+  roles;
 
   constructor(public bsModalRef: BsModalRef) {}
 
   ngOnInit(): void {}
   updateRoles() {
-    //this.updateSelectedRoles.emit(this.roles); //ovde problem
+    this.updateSelectedRoles.emit(this.roles);
     this.bsModalRef.hide();
   }
 }
