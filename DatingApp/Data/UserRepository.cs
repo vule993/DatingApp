@@ -14,14 +14,19 @@ namespace DatingApp.Data
 {
     public class UserRepository : IUserRepository
     {
+
         private readonly DataContext _context;
         private readonly IMapper _mapper;
+
+
 
         public UserRepository(DataContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
+
+
 
         public async Task<MemberDTO> GetMemberAsync(string username)
         {
@@ -39,6 +44,8 @@ namespace DatingApp.Data
                                        .ProjectTo<MemberDTO>(_mapper.ConfigurationProvider)
                                        .SingleOrDefaultAsync();
         }
+
+
 
         public async Task<PagedList<MemberDTO>> GetMembersAsync(UserParams userParams)
         {
@@ -64,25 +71,38 @@ namespace DatingApp.Data
                 userParams.PageSize);
         }
 
+
+
         public async Task<AppUser> GetUserByIdAsync(int id)
         {
             return await _context.Users.FindAsync(id);
         }
+
+
 
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
             return await _context.Users.Include(p => p.Photos).SingleOrDefaultAsync(x => x.UserName == username);
         }
 
+
+
+        public async Task<string> GetUserGender(string username)
+        {
+            return await _context.Users
+                .Where(x => x.UserName == username)
+                .Select(x => x.Gender)
+                .FirstOrDefaultAsync();
+        }
+
+
+
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
             return await _context.Users.Include(p => p.Photos).ToListAsync();
         }
 
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _context.SaveChangesAsync() > 0;   //save changes returns int, if it is greater than zero something is changed successfullly
-        }
+
 
         public void Update(AppUser user)
         {

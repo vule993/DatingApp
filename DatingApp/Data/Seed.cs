@@ -53,5 +53,14 @@ namespace DatingApp.Data
             await userManager.AddToRolesAsync(admin, new[] { "Admin", "Moderator" });
 
         }
+
+        public static async Task<bool> CleanAllConnections(DataContext context)
+        {
+            foreach(var connection in context.Connections)
+            {
+                context.Connections.Remove(connection);
+            }
+            return await context.SaveChangesAsync()>0;
+        }
     }
 }

@@ -40,8 +40,7 @@ namespace DatingApp.Helpers
                 .ForMember(dest => dest.SenderPhotoUrl, opt=>opt.MapFrom(src=>src.Sender.Photos.FirstOrDefault(x=>x.IsMain).Url))
                 .ForMember(dest => dest.RecipientPhotoUrl, opt=>opt.MapFrom(src=>src.Recipient.Photos.FirstOrDefault(x=>x.IsMain).Url));
 
-            //kada vratimo date klijentu imacemo z na kraju sto reprezentuje UTC vreme, kako ne bi bilo na jednom browser-u jedno na drugom drugo
-            CreateMap<DateTime, DateTime>().ConvertUsing(d => DateTime.SpecifyKind(d, DateTimeKind.Utc));
+            
 
         }
     }

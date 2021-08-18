@@ -32,6 +32,7 @@ namespace DatingApp.Extensions
             //messages repo
             services.AddScoped<IMessageRepository, MessageRepository>();
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             //za automatsko mapiranje klasa
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);    //da mozemo da injektujemo ovo moramo dodati u servise
