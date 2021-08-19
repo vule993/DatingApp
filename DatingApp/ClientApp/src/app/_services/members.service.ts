@@ -80,6 +80,7 @@ export class MembersService {
 
     return this._http.get<Member>(this.baseUrl + "/" + username);
   }
+  
   updateMember(member: Member) {
     return this._http.put(this.baseUrl, member).pipe(
       map(() => {

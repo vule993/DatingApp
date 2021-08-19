@@ -14,14 +14,20 @@ namespace DatingApp.Controllers
     [Authorize]
     public class MessagesController:BaseApiController
     {
+
+
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+
+
 
         public MessagesController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+
 
         [HttpPost]
         public async Task<ActionResult<MessageDTO>> CreateMessage(CreateMessageDTO createMessageDTO)
@@ -51,6 +57,8 @@ namespace DatingApp.Controllers
 
         }
 
+
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MessageDTO>>> GetMessagesForUser([FromQuery] MessageParams messageParams)
         {
@@ -60,6 +68,8 @@ namespace DatingApp.Controllers
             Response.AddPagginationHeader(messages.CurrentPage, messages.PageSize, messages.TotalCount, messages.TotalPages);
             return messages;
         }
+
+
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteMessage(int id)
@@ -81,6 +91,8 @@ namespace DatingApp.Controllers
 
             return BadRequest("Problem deleting the message.");
         }
+
+
 
     }
 }

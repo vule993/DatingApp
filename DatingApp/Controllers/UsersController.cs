@@ -35,7 +35,6 @@ namespace DatingApp.Controllers
         }
 
 
-
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberDTO>>> GetUsers([FromQuery]UserParams userParams)
         {
@@ -53,11 +52,9 @@ namespace DatingApp.Controllers
         }
 
 
-
         [HttpGet("{username}", Name ="GetUser")]
         public async Task<ActionResult<MemberDTO>> GetUsers(string username) => await _unitOfWork.UserRepository.GetMemberAsync(username); //vracamo memberDTO direktno iz repozitorijuma
         
-
 
         [HttpPut]
         public async Task<ActionResult> UpdateUser(MemberUpdateDTO memberUpdateDTO)
@@ -69,7 +66,6 @@ namespace DatingApp.Controllers
             if (await _unitOfWork.Complete()) return NoContent();
             return BadRequest("Failed to update profile.");
         }
-
 
 
         [HttpPost("add-photo")]
@@ -108,7 +104,6 @@ namespace DatingApp.Controllers
         }
 
 
-
         [HttpPut("set-main-photo/{photoId}")]
         public async Task<ActionResult> SetMainPhoto(int photoId)
         {
@@ -128,7 +123,6 @@ namespace DatingApp.Controllers
 
             return BadRequest("Failed to set main photo.");
         }
-
 
 
         [HttpDelete("delete-photo/{photoId}")]

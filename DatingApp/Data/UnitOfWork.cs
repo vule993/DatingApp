@@ -19,9 +19,7 @@ namespace DatingApp.Data
         }
 
         public IUserRepository UserRepository => new UserRepository(_context, _mapper);
-
         public IMessageRepository MessageRepository => new MessageRepository(_context, _mapper);
-
         public ILikesRepository LikesRepository => new LikesRepository(_context);
 
 
@@ -30,9 +28,11 @@ namespace DatingApp.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
+
         public bool HasChanges()
         {
             return _context.ChangeTracker.HasChanges();
         }
+
     }
 }

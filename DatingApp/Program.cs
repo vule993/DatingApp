@@ -34,6 +34,7 @@ namespace DatingApp
                 await context.Database.MigrateAsync();  //kreira bazu ako ne postoji
                 await Seed.SeedUsers(userManager, roleManager);  //staticka metoda Seed klase koja popunjava bazu user-ima iz UserSeedData.json
                 await Seed.CleanAllConnections(context);
+
             }
             catch (Exception ex)
             {

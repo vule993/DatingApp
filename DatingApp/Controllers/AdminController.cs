@@ -12,12 +12,15 @@ namespace DatingApp.Controllers
 {
     public class AdminController:BaseApiController
     {
+
+
         private readonly UserManager<AppUser> _userManager;
 
         public AdminController(UserManager<AppUser> userManager)
         {
             _userManager = userManager;
         }
+
 
 
         [Authorize(Policy ="RequireAdminRole")]
@@ -39,6 +42,8 @@ namespace DatingApp.Controllers
             return Ok(users);
         }
 
+
+
         [HttpPost("edit-roles/{username}")]
         public async Task<ActionResult> EditRoles(string username, [FromQuery]string roles)
         {
@@ -57,6 +62,8 @@ namespace DatingApp.Controllers
 
             return Ok(await _userManager.GetRolesAsync(user)); 
         }
+
+
 
         [Authorize(Policy = "ModeratePhotoRole")]
         [HttpGet("photos-to-moderate")]

@@ -27,6 +27,8 @@ namespace DatingApp.SignalR
             _tracker = tracker;
         }
 
+
+
         public override async Task OnConnectedAsync()
         {
             var httpContext = Context.GetHttpContext();
@@ -38,19 +40,25 @@ namespace DatingApp.SignalR
             await Clients.Group(groupName).SendAsync("UpdatedGroup",group);
 
             var messages = await _unitOfWork.MessageRepository.GetMessageThread(Context.User.GetUsername(), otherUser);
-            if (_unitOfWork.HasChanges()) await _unitOfWork.Complete();     //saveChanges nije na repozitorijumu da uradi, pa cemo to uraditi ovde
-                                                                            //svakako je injectovan pa cemo proveriti ako je unutra nesto promenio neka sacuva :)
+            if (_unitOfWork.HasChanges())
+            {
+                await _unitOfWork.Complete();     //saveChanges nije na repozitorijumu da uradi, pa cemo to uraditi ovde
+                                                  //svakako je injectovan pa cemo proveriti ako je unutra nesto promenio neka sacuva :)
+            }
 
             await Clients.Caller.SendAsync("ReceiveMessageThread", messages);
 
 
         }
+
+
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             var group = await RemoveFromMessageGroup();
             await Clients.Group(group.Name).SendAsync("UpdatedGroup", group);
             await base.OnDisconnectedAsync(exception);
         }
+
 
         public async Task SendMessage(CreateMessageDTO createMessageDTO)
         {
@@ -96,6 +104,7 @@ namespace DatingApp.SignalR
 
         }
 
+
         private async Task<Group> AddToGroup(string groupName)
         {
             var group = await _unitOfWork.MessageRepository.GetMessageGroup(groupName);
@@ -115,6 +124,7 @@ namespace DatingApp.SignalR
             throw new HubException("Failed to join group.");
         }
 
+
         private async Task<Group> RemoveFromMessageGroup()
         {
             var group = await _unitOfWork.MessageRepository.GetGroupForConnection(Context.ConnectionId);
@@ -128,10 +138,12 @@ namespace DatingApp.SignalR
             throw new HubException("Failed to remove from group.");
         }
 
+
         private string GetGroupName(string caller, string other)
         {
             var stringCompare = string.Compare(caller, other) < 0;      //0 ako je a<b, 0 ako su jednaki
             return stringCompare ? $"{caller}-{other}" : $"{other}-{caller}";
         }
+
     }
 }

@@ -30,6 +30,7 @@ namespace DatingApp.Controllers
             _mapper = mapper;
         }
 
+
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
         {
@@ -53,8 +54,9 @@ namespace DatingApp.Controllers
             };
         }
 
+
         private async Task<bool> UserExists(string username) => await _userManager.Users.AnyAsync(user=>user.UserName == username.ToLower());
-        
+
 
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)

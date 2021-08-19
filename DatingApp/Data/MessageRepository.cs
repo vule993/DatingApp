@@ -23,23 +23,31 @@ namespace DatingApp.Data
             _mapper = mapper;
         }
 
+
         public void AddGroup(Group group)
         {
             _context.Groups.Add(group);
         }
 
+
         public async Task<Connection> GetConnection(string connectionId)
         {
             return await _context.Connections.FindAsync(connectionId);
         }
+        
+        
         public async Task<Group> GetMessageGroup(string groupName)
         {
             return await _context.Groups.Include(x => x.Connections).FirstOrDefaultAsync(x=>x.Name == groupName);
         }
+        
+        
         public void RemoveConnection(Connection connection)
         {
             _context.Connections.Remove(connection);
         }
+        
+        
         public async Task<Group> GetGroupForConnection(string connectionId)
         {
             return await _context.Groups
@@ -53,14 +61,20 @@ namespace DatingApp.Data
         {
             _context.Messages.Add(message);
         }
+        
+        
         public void DeleteMessage(Message message)
         {
             _context.Messages.Remove(message);
         }
+        
+        
         public async Task<Message> GetMessage(int id)
         {
             return await _context.Messages.Include(u=>u.Sender).Include(u=>u.Recipient).SingleOrDefaultAsync(x=>x.Id == id);
         }
+        
+        
         public async Task<PagedList<MessageDTO>> GetMessagesForUser(MessageParams messageParams)
         {
             var query = _context.Messages
@@ -75,19 +89,23 @@ namespace DatingApp.Data
                 _ => query.Where(u => u.RecipientUsername == messageParams.Username && !u.RecipientDeleted && u.DateRead == null)
             };
 
-            return await PagedList<MessageDTO>.CreateAsync(query, messageParams.PageNumber, messageParams.PageSize);
+            return await PagedList<MessageDTO>.CreateAsync(query.OrderBy(x=>x.Id), messageParams.PageNumber, messageParams.PageSize);
         }
+
+
         public async Task<IEnumerable<MessageDTO>> GetMessageThread(string currentUsername, string recipientUsername)
         {
             var messages = await _context.Messages
+                           .Include(u=>u.Sender).ThenInclude(p=>p.Photos).AsSplitQuery()
+                           .Include(u=>u.Recipient).ThenInclude(p=>p.Photos).AsSplitQuery()
                            .Where(m=>m.Recipient.UserName==currentUsername && !m.RecipientDeleted
                                        && m.Sender.UserName == recipientUsername 
                                        || m.Recipient.UserName == recipientUsername
                                        && m.Sender.UserName==currentUsername && !m.SenderDeleted
                            )
                            .OrderBy(m=>m.MessageSent)
-                           .ProjectTo<MessageDTO>(_mapper.ConfigurationProvider)
                            .ToListAsync();
+
             var unreadMessages = messages.Where(m => m.DateRead == null && m.RecipientUsername == currentUsername).ToList();
             if (unreadMessages.Any())
             {
@@ -96,9 +114,9 @@ namespace DatingApp.Data
                     m.DateRead = DateTime.UtcNow;
                 }
             }
+            var result = _mapper.Map<List<MessageDTO>>(messages);
 
-            return messages;
+            return result;
         }
-        
     }
 }

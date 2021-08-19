@@ -51,7 +51,7 @@ namespace DatingApp.Data
                 Id = user.Id
             });
 
-            return await PagedList<LikeDTO>.CreateAsync(likedUsers, likesParams.PageNumber, likesParams.PageSize);
+            return await PagedList<LikeDTO>.CreateAsync(likedUsers.OrderBy(x=>x.Id), likesParams.PageNumber, likesParams.PageSize);
         }
 
         public async Task<AppUser> GetUserWithLikes(int userId)
