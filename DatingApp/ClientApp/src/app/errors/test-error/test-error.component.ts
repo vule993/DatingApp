@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-test-error",
@@ -7,7 +8,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./test-error.component.css"],
 })
 export class TestErrorComponent implements OnInit {
-  baseUrl = "https://localhost:5001/api/buggy/";
+  baseUrl = environment.apiUrl + "buggy/";
   validationErrors: string[] = [];
   constructor(private _http: HttpClient) {}
 
@@ -42,7 +43,7 @@ export class TestErrorComponent implements OnInit {
   }
 
   get400ValidationError() {
-    this._http.post("https://localhost:5001/api/account/login", {}).subscribe(
+    this._http.post(environment.apiUrl + "account/login", {}).subscribe(
       (response) => console.log(response),
       (err) => {
         console.log(err);

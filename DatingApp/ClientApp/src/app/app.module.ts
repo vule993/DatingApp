@@ -3,7 +3,6 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
-
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
 import { HomeComponent } from "./home/home.component";
@@ -112,8 +111,7 @@ import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.c
       { path: "error-tests", component: TestErrorComponent },
       { path: "not-found", component: NotFoundComponent },
       { path: "server-error", component: ServerErrorComponent },
-      { path: "**", component: NotFoundComponent, pathMatch: "full" }, //da match-uje sve ostale putanje, tipa ako neko unese nesto nasumicno ide na home (pathmatch mora jer ako se prepozna podstring
-      //baca na tu stranu, pa ako se unese recimo https://localhost:5001/members/pera, vodice na members stranu jer je to najduze poklapanje sa ispravnom putanjom)
+      { path: "**", component: NotFoundComponent, pathMatch: "full" },
     ]),
     BrowserAnimationsModule,
     SharedModule,
