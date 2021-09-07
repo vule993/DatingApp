@@ -67,7 +67,7 @@ namespace DatingApp.Controllers
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDTO.Password, false);
 
-            if (!result.Succeeded) return Unauthorized("Neautorizovan pristup.");
+            if (!result.Succeeded) return Unauthorized("Unauthorized access.");
 
             return new UserDTO
             {

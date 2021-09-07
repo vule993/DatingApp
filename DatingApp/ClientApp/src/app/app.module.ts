@@ -38,7 +38,7 @@ import { HasRoleDirective } from "./_directives/has-role.directive";
 import { UserManagmentComponent } from "./admin/user-managment/user-managment.component";
 import { PhotoManagmentComponent } from "./admin/photo-managment/photo-managment.component";
 import { RolesModalComponent } from "./modals/roles-modal/roles-modal.component";
-import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from "./modals/confirm-dialog/confirm-dialog.component";
 
 @NgModule({
   declarations: [
@@ -112,6 +112,10 @@ import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.c
       { path: "not-found", component: NotFoundComponent },
       { path: "server-error", component: ServerErrorComponent },
       { path: "**", component: NotFoundComponent, pathMatch: "full" },
+      //** wild card attribute, pogodjen samo kada se nista drugo ne pogodi
+      //ako postoji atribut pathMatch: "full" onda trazi kompletnu putanju u protivnom vratice prvu koja se poklapa sa definisanim
+      //primer imamo definisane putanje: localhost/users/2/ i localhost/users/2/details, ova druga nikad ne bi bila pogodjena
+      //jer bi prepoznao prvu putanju na koju naidje i izrenderovao tu komponentu (u ovom slucaju localhost/users/2/)
     ]),
     BrowserAnimationsModule,
     SharedModule,
